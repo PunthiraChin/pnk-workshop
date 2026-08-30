@@ -56,6 +56,8 @@ h1{font-size:15pt;font-weight:800;color:var(--navy);letter-spacing:-.02em;line-h
 .tc .lbl em{font-style:normal;display:block;font-weight:600;color:var(--muted);font-size:6.8pt;letter-spacing:0}
 .tc .f{min-height:9mm}
 .three{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2mm}
+.ex{font-size:7.4pt;color:var(--navy);background:#fffaf0;border:1px solid #f0dfc0;border-radius:6px;padding:1.8mm 2.6mm;margin-top:1mm}
+.ex b{color:#8a6a1f}
 .ft{border:1px solid var(--accent-sft);background:var(--accent-sft);border-radius:6px;padding:2.4mm 3mm;margin-top:4mm}
 .ft .bh b{font-size:8.6pt}
 .tip{font-size:7.2pt;color:var(--navy);background:var(--teal-sft);border-left:2.5px solid var(--teal);
@@ -103,10 +105,12 @@ h1{font-size:15pt;font-weight:800;color:var(--navy);letter-spacing:-.02em;line-h
       <h1>ใบเขียน PRD สำหรับผลิตภัณฑ์ AI</h1>
       <div class="sub">เขียนให้คนอื่นสร้างต่อได้ — และคนอื่นในที่นี้รวมถึง AI ด้วย</div>
     </div>
-    <div class="rt">ผลิตภัณฑ์ <span class="f" data-k="meta.product" contenteditable style="display:inline-block;min-width:44mm;min-height:0;padding:.6mm 1.4mm">แชตบอทถาม-ตอบ รพ.พระนั่งเกล้า</span><br>
+    <div class="rt">ผลิตภัณฑ์ <span class="f" data-k="meta.product" contenteditable style="display:inline-block;min-width:44mm;min-height:0;padding:.6mm 1.4mm">แชตบอทถาม-ตอบของโรงพยาบาล</span><br>
       หน่วยงาน <span class="f" data-k="meta.unit" contenteditable style="display:inline-block;min-width:30mm;min-height:0;padding:.6mm 1.4mm">ประชาสัมพันธ์ + IT</span> ·
       <span class="f" data-k="meta.date" contenteditable style="display:inline-block;min-width:18mm;min-height:0;padding:.6mm 1.4mm">๓๑ ส.ค. ๖๙</span></div>
   </div>
+
+  <div class="ex">📝 <b>ข้อความสีเทาในทุกช่องเป็นตัวอย่างสมมติ</b> — เป็นแชตบอทถาม-ตอบของ<b>โรงพยาบาลรัฐสมมุติแห่งหนึ่ง</b> ตัวเลขทั้งหมดแต่งขึ้นเพื่อการสอน ไม่ใช่ข้อมูลของโรงพยาบาลใด · <b>คลิกทับได้เลย</b> หรือกด “ล้างเป็นใบเปล่า” เพื่อเริ่มจากศูนย์</div>
 
   <div class="grp">ส่วน A · ทำไม และเพื่อใคร <span>ทำไมต้องทำ และแค่ไหนถึงพอ</span></div>
 
@@ -272,7 +276,7 @@ const txt=e=>e.innerHTML.replace(/<br\s*\/?>/gi,'\n').replace(/<[^>]+>/g,'').rep
 function build(){const o={};F.forEach(e=>{const p=e.dataset.k.split('.');let c=o;
   p.forEach((k,i)=>{if(i===p.length-1)c[k]=txt(e);else c=c[k]=c[k]||{};});});return o;}
 function exp(){
-  const o={_meta:{schema:'cariva-mini-prd/1',exported_from:'PNK Workshop 2569-08-31'},...build()};
+  const o={_meta:{schema:'cariva-mini-prd/1',exported_from:'Cariva AI PRD Canvas'},...build()};
   const b=new Blob([JSON.stringify(o,null,2)],{type:'application/json'});
   const a=document.createElement('a');a.href=URL.createObjectURL(b);
   a.download=(o.meta&&o.meta.product?o.meta.product.replace(/[\/\\:*?"<>|]/g,'-'):'prd')+'.json';
