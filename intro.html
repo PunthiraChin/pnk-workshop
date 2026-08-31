@@ -1,0 +1,1050 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PNK Workshop Introduction — Cariva</title>
+    <!--
+  ════════════════════════════════════════════════════════════════════
+  CARIVA HTML DECK · template + worked example (AI Health Agent, 5 slides)
+  Brand: Cariva Modern (templates/cariva-modern-brand.md) · register: brand
+  Engine: fixed 16:9 stage (1280×720), keyboard nav, print-to-PDF clean.
+  Authoring: duplicate a <section class="slide ..."> block and swap content.
+  Nav: → / Space / PageDown next · ← / PageUp prev · Home / End · click edges.
+  Export PDF: press P (or browser Print) → Save as PDF, Landscape, margins None.
+  ════════════════════════════════════════════════════════════════════
+-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        /* Cariva Modern — committed brand tokens */
+        --bg: #ffffff;
+        --bg-alt: #f7f9fb;
+        --surface: #ffffff;
+        --navy: #1b2a4a;
+        --navy-2: #11203c;
+        --ink: #14181f;
+        --muted: #5b6675;
+        --accent: #2f6bff;
+        --accent-2: #1e4fd8;
+        --accent-sft: #eaf0ff;
+        --teal: #0fb5a6;
+        --teal-sft: #e4f7f4;
+        --line: #e6eaf0;
+        --chip: #eef2f8;
+        --good: #0f9d6b;
+        --warn: #d98a00;
+        --bad: #e0492f;
+        --radius: 14px;
+        --shadow:
+          0 1px 2px rgba(20, 24, 31, 0.04), 0 18px 50px rgba(20, 24, 31, 0.1);
+        --font:
+          "Inter", "IBM Plex Sans Thai", -apple-system, BlinkMacSystemFont,
+          "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+      }
+      body {
+        background:
+          radial-gradient(
+            1200px 600px at 80% -10%,
+            #eef3ff 0%,
+            transparent 55%
+          ),
+          radial-gradient(
+            900px 500px at -10% 110%,
+            #e9f7f4 0%,
+            transparent 55%
+          ),
+          #0e1626;
+        font-family: var(--font);
+        color: var(--ink);
+        overflow: hidden;
+      }
+
+      /* ── Stage: fixed 16:9, scaled to viewport ──────────────────────── */
+      .stage {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: 1280px;
+        height: 720px;
+        transform: translate(-50%, -50%);
+        transform-origin: center center;
+        background: var(--bg);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        border-radius: 6px;
+      }
+      .slide {
+        position: absolute;
+        inset: 0;
+        padding: 60px 64px 58px;
+        display: none;
+        flex-direction: column;
+        opacity: 0;
+      }
+      .slide.active {
+        display: flex;
+        opacity: 1;
+        animation: slidein 0.34s var(--ease) both;
+      }
+      @keyframes slidein {
+        from {
+          opacity: 0;
+          transform: translateX(26px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      /* ── Type ───────────────────────────────────────────────────────── */
+      h1,
+      h2,
+      h3 {
+        margin: 0;
+      }
+      .kicker {
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+      .slide h1 {
+        font-size: 40px;
+        line-height: 1.07;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        color: var(--navy);
+        text-wrap: balance;
+        margin: 6px 0 4px;
+      }
+      .slide .sub {
+        font-size: 20px;
+        font-weight: 500;
+        color: var(--muted);
+        margin: 0 0 18px;
+        max-width: 62ch;
+      }
+      .slide p {
+        font-size: 18px;
+        line-height: 1.5;
+        color: var(--ink);
+        margin: 0 0 12px;
+      }
+      .slide .lead-para {
+        font-size: 19px;
+        color: #33405a;
+        max-width: 70ch;
+      }
+      strong {
+        color: var(--navy);
+        font-weight: 700;
+      }
+      .em {
+        color: var(--accent);
+        font-weight: 600;
+      }
+      .em-teal {
+        color: #0a8c80;
+        font-weight: 600;
+      }
+
+      /* ── Tables ─────────────────────────────────────────────────────── */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 15.5px;
+      }
+      th,
+      td {
+        text-align: left;
+        padding: 9px 12px;
+        vertical-align: top;
+        border-bottom: 1px solid var(--line);
+      }
+      thead th {
+        background: var(--navy);
+        color: #fff;
+        font-weight: 700;
+        font-size: 13px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        border-bottom: 2px solid var(--accent);
+      }
+      thead th:first-child {
+        border-top-left-radius: 9px;
+      }
+      thead th:last-child {
+        border-top-right-radius: 9px;
+      }
+      tbody tr:nth-child(even) td {
+        background: var(--bg-alt);
+      }
+      td .t-title {
+        color: var(--navy);
+        font-weight: 700;
+      }
+      td small {
+        color: var(--muted);
+        font-size: 13.5px;
+      }
+      .tbl-wrap {
+        border: 1px solid var(--line);
+        border-radius: 11px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+      }
+      .tbl-wrap thead th {
+        border-radius: 0;
+      }
+
+      /* ── Pills ──────────────────────────────────────────────────────── */
+      .pill {
+        display: inline-block;
+        padding: 3px 11px;
+        border-radius: 999px;
+        font-size: 12.5px;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+      .pill-good {
+        background: var(--teal-sft);
+        color: #0a7d72;
+      }
+      .pill-warn {
+        background: #fbf0d9;
+        color: #9a6500;
+      }
+      .pill-accent {
+        background: var(--accent-sft);
+        color: var(--accent-2);
+      }
+
+      /* ── Proof strip (replaces icon-card grid) ──────────────────────── */
+      .proof {
+        display: flex;
+        gap: 0;
+        margin-top: 6px;
+        border: 1px solid var(--line);
+        border-radius: 13px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+      }
+      .proof > div {
+        flex: 1;
+        padding: 16px 20px;
+        background: var(--surface);
+      }
+      .proof > div + div {
+        border-left: 1px solid var(--line);
+      }
+      .proof .ph {
+        font-weight: 700;
+        color: var(--navy);
+        font-size: 16px;
+        margin-bottom: 3px;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+      }
+      .proof .pb {
+        font-size: 14px;
+        color: var(--muted);
+        line-height: 1.4;
+      }
+      .proof .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--accent);
+        display: inline-block;
+      }
+
+      /* ── Callout / insight (full border, no side-stripe) ────────────── */
+      .callout {
+        margin-top: auto;
+        background: var(--accent-sft);
+        border: 1px solid #d4e0ff;
+        border-radius: 12px;
+        padding: 13px 18px;
+        color: var(--navy);
+        font-size: 16px;
+        line-height: 1.45;
+      }
+      .callout.teal {
+        background: var(--teal-sft);
+        border-color: #bfeae4;
+      }
+      .callout b {
+        color: var(--accent-2);
+      }
+
+      /* ── Pillar rows: icon + label ──────────────────────────────────── */
+      .pillcell {
+        display: flex;
+        gap: 11px;
+        align-items: flex-start;
+      }
+      .pillcell .ic {
+        font-size: 20px;
+        line-height: 1.1;
+      }
+      .pillcell .pl b {
+        color: var(--navy);
+        font-size: 16px;
+      }
+      .pillcell .pl i {
+        color: var(--accent);
+        font-style: normal;
+        font-weight: 600;
+        font-size: 13px;
+        display: block;
+        margin-top: 1px;
+      }
+
+      /* ── Two-column ─────────────────────────────────────────────────── */
+      .cols {
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 26px;
+        margin-bottom: 14px;
+      }
+      .catlist {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .catlist li {
+        padding: 9px 0;
+        border-bottom: 1px solid var(--line);
+        font-size: 16px;
+      }
+      .catlist li:last-child {
+        border-bottom: 0;
+      }
+      .catlist .c-h {
+        font-weight: 700;
+        color: var(--navy);
+      }
+      .catlist small {
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .notebox {
+        background: var(--bg-alt);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 16px 18px;
+      }
+      .notebox h3 {
+        color: var(--navy);
+        font-size: 16px;
+        margin-bottom: 7px;
+      }
+      .notebox p {
+        font-size: 15px;
+        color: #33405a;
+        margin: 0;
+      }
+
+      /* ── Packages inline ────────────────────────────────────────────── */
+      .pkg {
+        display: flex;
+        gap: 10px;
+        margin-top: 13px;
+        flex-wrap: wrap;
+      }
+      .pkg .p {
+        flex: 1;
+        min-width: 0;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 13px 14px;
+        box-shadow: var(--shadow);
+      }
+      .pkg .p .n {
+        font-weight: 800;
+        color: var(--navy);
+        font-size: 15px;
+        margin-bottom: 4px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .pkg .p .d {
+        font-size: 13px;
+        color: var(--muted);
+        line-height: 1.4;
+      }
+      .pkg .arrow {
+        align-self: center;
+        color: var(--accent);
+        font-weight: 800;
+        font-size: 18px;
+      }
+
+      /* ── Lead slide ─────────────────────────────────────────────────── */
+      .slide.lead {
+        justify-content: center;
+        align-items: flex-start;
+        background: linear-gradient(
+          165deg,
+          #ffffff 0%,
+          #f2f6ff 60%,
+          #eaf7f4 100%
+        );
+      }
+      .slide.lead::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 6px;
+        background: linear-gradient(
+          90deg,
+          var(--navy),
+          var(--accent) 55%,
+          var(--teal)
+        );
+      }
+      .wordmark {
+        font-weight: 800;
+        font-size: 22px;
+        letter-spacing: 0.02em;
+        color: var(--navy);
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        margin-bottom: 30px;
+      }
+      .wordmark .mk {
+        width: 13px;
+        height: 13px;
+        border-radius: 4px;
+        background: linear-gradient(135deg, var(--accent), var(--teal));
+        box-shadow: 0 0 0 4px var(--accent-sft);
+      }
+      .slide.lead h1 {
+        font-size: 62px;
+        line-height: 1.02;
+        margin: 0 0 16px;
+        max-width: 18ch;
+      }
+      .slide.lead .sub {
+        font-size: 24px;
+        color: var(--navy);
+        font-weight: 600;
+        max-width: 30ch;
+        margin-bottom: 14px;
+      }
+      .slide.lead .meta {
+        position: absolute;
+        left: 64px;
+        bottom: 46px;
+        font-size: 14px;
+        color: var(--muted);
+        font-weight: 600;
+        letter-spacing: 0.02em;
+      }
+
+      /* ── Divider / CTA (navy drench) ────────────────────────────────── */
+      .slide.divider {
+        background: linear-gradient(155deg, var(--navy) 0%, var(--navy-2) 100%);
+        justify-content: center;
+      }
+      .slide.divider::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 6px;
+        background: linear-gradient(90deg, var(--teal), var(--accent));
+      }
+      .slide.divider .kicker {
+        color: #7fa8ff;
+      }
+      .slide.divider h1 {
+        color: #fff;
+        font-size: 48px;
+        max-width: 20ch;
+      }
+      .slide.divider .sub {
+        color: #c5d2ee;
+        font-size: 21px;
+        max-width: 54ch;
+      }
+      .slide.divider p {
+        color: #dbe4f5;
+      }
+      .slide.divider .fitline {
+        font-size: 16px;
+        color: #aebbd6;
+        line-height: 1.6;
+        margin: 6px 0 18px;
+        max-width: 74ch;
+      }
+      .slide.divider .fitline b {
+        color: #fff;
+      }
+      .slide.divider .callout {
+        background: rgba(255, 255, 255, 0.07);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        color: #fff;
+        margin-top: 8px;
+        backdrop-filter: none;
+      }
+      .slide.divider .callout b {
+        color: #9fe9e0;
+      }
+
+      /* ── Slide footer chrome ────────────────────────────────────────── */
+      .foot {
+        position: absolute;
+        right: 30px;
+        bottom: 22px;
+        font-size: 12px;
+        color: var(--muted);
+        font-weight: 600;
+        letter-spacing: 0.04em;
+      }
+      .slide.divider .foot {
+        color: #8b9ac0;
+      }
+
+      /* ── Deck navigation UI ─────────────────────────────────────────── */
+      .nav {
+        position: fixed;
+        right: 18px;
+        bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        z-index: 50;
+        background: rgba(17, 32, 60, 0.62);
+        backdrop-filter: blur(8px);
+        padding: 7px 10px;
+        border-radius: 999px;
+      }
+      .nav button {
+        width: 30px;
+        height: 30px;
+        border: 0;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.14);
+        color: #fff;
+        font-size: 15px;
+        cursor: pointer;
+        display: grid;
+        place-items: center;
+        transition: background 0.18s;
+      }
+      .nav button:hover {
+        background: var(--accent);
+      }
+      .nav .count {
+        color: #fff;
+        font-size: 13px;
+        font-weight: 700;
+        padding: 0 4px;
+        min-width: 42px;
+        text-align: center;
+        letter-spacing: 0.03em;
+      }
+      .progress {
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 3px;
+        background: var(--accent);
+        z-index: 60;
+        transition: width 0.3s var(--ease);
+      }
+      .zone {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        width: 18%;
+        z-index: 40;
+        cursor: pointer;
+      }
+      .zone.l {
+        left: 0;
+      }
+      .zone.r {
+        right: 0;
+        width: 30%;
+      }
+      .hint {
+        position: fixed;
+        left: 18px;
+        bottom: 18px;
+        z-index: 50;
+        font-size: 12px;
+        color: #9fb0d0;
+        font-weight: 600;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .slide.active {
+          animation: none;
+        }
+        .progress {
+          transition: none;
+        }
+      }
+
+      /* ── Print → PDF (each slide one 16:9 page) ─────────────────────── */
+      #printwrap {
+        display: none;
+      }
+      @media print {
+        @page {
+          size: 1280px 720px;
+          margin: 0;
+        }
+        html,
+        body {
+          height: auto;
+          background: #fff;
+          overflow: visible;
+        }
+        .nav,
+        .zone,
+        .hint,
+        .progress,
+        .stage {
+          display: none !important;
+        }
+        #printwrap {
+          display: block;
+        }
+        .printpage {
+          position: relative;
+          width: 1280px;
+          height: 720px;
+          overflow: hidden;
+          page-break-after: always;
+          break-after: page;
+          background: var(--bg);
+        }
+        .printpage .slide {
+          position: absolute;
+          inset: 0;
+          display: flex !important;
+          opacity: 1 !important;
+          animation: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="progress" id="progress"></div>
+
+    <div class="stage" id="stage">
+      <section class="slide lead active">
+        <div class="wordmark"><span class="mk"></span> CARIVA</div>
+        <div class="kicker">
+          โรงพยาบาลพระนั่งเกล้า · จันทร์ที่ ๓๑ สิงหาคม ๒๕๖๙
+        </div>
+        <h1>จุดเริ่มต้น สู่การสร้าง<br />AI Chatbot ใช้งานภายในโรงพยาบาล</h1>
+        <p class="sub">
+          ออกแบบให้ถูกก่อนลงมือทำ — แล้วสร้างต้นแบบเพื่อต่อยอดสู่การใช้งานจริง
+        </p>
+        <div class="proof" style="margin-top: 22px; max-width: none">
+          <div>
+            <div class="ph"><span class="dot"></span>ภาคเช้า</div>
+            <div class="pb">
+              ออกแบบ — เลือกโจทย์ให้ถูก และเขียนเป็นเอกสารที่สร้างต่อได้
+            </div>
+          </div>
+          <div>
+            <div class="ph">
+              <span class="dot" style="background: var(--teal)"></span>ภาคบ่าย
+            </div>
+            <div class="pb">ลงมือสร้างต้นแบบที่กดลองใช้ได้</div>
+          </div>
+          <div>
+            <div class="ph">
+              <span class="dot" style="background: var(--navy)"></span
+              >กลับบ้านพร้อม
+            </div>
+            <div class="pb">ต้นแบบของกลุ่มท่าน + แผนต่อยอดสู่การใช้จริง</div>
+          </div>
+        </div>
+        <div class="meta">
+          จัดอบรมโดย บริษัท แคริวา (ประเทศไทย) จำกัด · ๑๐.๐๐–๑๖.๐๐ น.
+        </div>
+      </section>
+
+      <section class="slide">
+        <div class="kicker">วันนี้เราจะทำอะไรกัน</div>
+        <h1>Agenda</h1>
+        <p class="sub">
+          ทุกกลุ่มงานจะได้ต้นแบบ AI ของตัวเอง ๑ ชิ้น ที่ออกแบบเอง ทดสอบเอง
+          และพร้อมต่อยอดสู่การใช้งานจริง
+        </p>
+        <div class="cols" style="gap: 26px; margin-top: 8px">
+          <div class="tbl-wrap" style="margin: 0">
+            <table>
+              <thead>
+                <tr>
+                  <th colspan="2">ภาคเช้า ๑๐.๐๐–๑๒.๐๐ · <b>ออกแบบ</b></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 31%"><b>๑๐.๐๐</b></td>
+                  <td>แนะนำทีม และภาพรวมของ session วันนี้</td>
+                </tr>
+                <tr>
+                  <td><b>๑๐.๑๐</b></td>
+                  <td>เข้าใจ<b>เครื่องมือ AI</b>ในรูปแบบต่าง ๆ</td>
+                </tr>
+                <tr>
+                  <td><b>๑๐.๓๐</b></td>
+                  <td>
+                    <b>องค์ประกอบหลักของ chatbot</b> จาก use case จริง<br /><i
+                      >flow · prompt · tool use · RAG · guardrail</i
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>๑๐.๕๐</b></td>
+                  <td>
+                    <b>วิธีวัดผลทางวิทยาศาสตร์</b><br /><i
+                      >ตั้งเกณฑ์ยอมรับ · วิธีวัดผล · ปรับปรุงซ้ำ</i
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>๑๑.๑๐</b></td>
+                  <td><b>การเขียน PRD</b> เพื่อให้นำไปสร้างต่อได้จริง</td>
+                </tr>
+                <tr>
+                  <td><b>๑๑.๓๐</b></td>
+                  <td>🛠 <b>Workshop 1 — เขียน PRD ของกลุ่มท่าน</b></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="tbl-wrap" style="margin: 0">
+            <table>
+              <thead>
+                <tr>
+                  <th colspan="2">ภาคบ่าย ๑๓.๐๐–๑๖.๐๐ · <b>ลงมือสร้าง</b></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 31%"><b>๑๓.๐๐</b></td>
+                  <td>🏆 นำเสนอการออกแบบรายกลุ่ม <i>กลุ่มละ ๓–๕ นาที</i></td>
+                </tr>
+                <tr>
+                  <td><b>๑๓.๓๐</b></td>
+                  <td>วิธีลงมือทำต้นแบบ + <b>สร้างสื่อด้วย AI</b></td>
+                </tr>
+                <tr>
+                  <td><b>๑๔.๐๐</b></td>
+                  <td>
+                    🛠 <b>Workshop 2 — สร้างต้นแบบที่ใช้งานได้จริง</b><br /><i
+                      >พักเบรกระหว่างทาง ๑๔.๓๐</i
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <td><b>๑๕.๐๐</b></td>
+                  <td>🏆 นำเสนอผลงาน <i>กลุ่มละ ๓–๕ นาที</i></td>
+                </tr>
+                <tr>
+                  <td><b>๑๕.๓๐</b></td>
+                  <td>ก้าวต่อไปเพื่อให้ทำแล้วใช้งานได้จริง<br /></td>
+                </tr>
+                <tr>
+                  <td><b>๑๕.๕๐</b></td>
+                  <td>สรุป และถาม-ตอบ</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="callout" style="margin-top: 14px">
+          <b>วันนี้ไม่ได้สอนวิธีใช้เครื่องมือ</b> — เครื่องมือเปลี่ยนทุกไตรมาส
+          สิ่งที่เราจะสอนคือ<b>วิธีออกแบบ</b>
+          ซึ่งใช้ได้กับเครื่องมือรุ่นถัดไปด้วย
+        </div>
+        <div class="foot">Cariva · Workshop รพ.พระนั่งเกล้า</div>
+      </section>
+
+      <section class="slide">
+        <div class="kicker">ผู้จัดอบรม</div>
+        <h1>
+          Cariva — เราสร้าง AI ที่<span class="em">ใช้จริงในโรงพยาบาลไทย</span>
+        </h1>
+        <p class="sub">บทเรียนในวันนี้มาจากของที่เราสร้างแล้วเจอปัญหาจริง</p>
+        <div class="tbl-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 26%">ผลิตภัณฑ์</th>
+                <th style="width: 36%">ทำอะไร</th>
+                <th>ใช้กับใคร</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="pillcell">
+                    <span class="ic">🎙️</span
+                    ><span class="pl"
+                      ><b>MOR-ASR</b><i>AI Medical Scribe</i></span
+                    >
+                  </div>
+                </td>
+                <td>
+                  ถอดเสียงสนทนาแพทย์-ผู้ป่วยเป็นบันทึกทางการแพทย์
+                  และช่วยให้รหัสโรค
+                </td>
+                <td><b>ใช้งานจริงในโรงพยาบาลกว่า ๓๐ แห่ง</b></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="pillcell">
+                    <span class="ic">📚</span
+                    ><span class="pl"><b>PreceptorAI</b></span>
+                  </div>
+                </td>
+                <td>ผู้ช่วยตอบคำถามความรู้ทางการแพทย์สำหรับบุคลากรสาธารณสุข</td>
+                <td>แพทย์ พยาบาล และนักศึกษาแพทย์</td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="pillcell">
+                    <span class="ic">💬</span
+                    ><span class="pl"
+                      ><b>Health &amp; Wellness Chatbot</b></span
+                    >
+                  </div>
+                </td>
+                <td>
+                  แชตบอทสุขภาพประจำโรงพยาบาล ตอบคำถามผู้ป่วยและญาติผ่าน LINE
+                </td>
+                <td>โรงพยาบาลเอกชนขนาดใหญ่</td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="pillcell">
+                    <span class="ic">🩺</span
+                    ><span class="pl"><b>NCD Chatbot</b></span>
+                  </div>
+                </td>
+                <td>
+                  แชตบอทดูแลผู้ป่วยโรคไม่ติดต่อเรื้อรัง
+                  เชื่อมกับข้อมูลสุขภาพส่วนบุคคล
+                </td>
+                <td><b>กระทรวงสาธารณสุข</b></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="pillcell">
+                    <span class="ic">🫁</span
+                    ><span class="pl"
+                      ><b>AI CDS</b><i>ภาพเอกซเรย์ทรวงอก</i></span
+                    >
+                  </div>
+                </td>
+                <td>ระบบช่วยตัดสินใจทางคลินิกจากภาพเอกซเรย์ปอด</td>
+                <td>กระทรวงสาธารณสุข</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout teal">
+          สิ่งที่เหมือนกันทุกผลิตภัณฑ์ —
+          <b
+            >ส่วนที่ยากไม่ใช่ตัว AI
+            แต่คือการออกแบบให้มันปลอดภัยพอที่จะปล่อยให้คนไข้ใช้</b
+          >
+          วันนี้เราจะสอนส่วนนั้น
+        </div>
+        <div class="foot">Cariva · Workshop รพ.พระนั่งเกล้า</div>
+      </section>
+
+      <section class="slide">
+        <div class="kicker">ทีมวิทยากร</div>
+        <h1>ทีมวิทยากร</h1>
+        <p class="sub"></p>
+        <div
+          class="cols"
+          style="grid-template-columns: 1fr 1fr 1fr; gap: 18px; margin-top: 6px"
+        >
+          <div class="notebox">
+            <h3>🩺 นพ. อรุษ ลีลาทวีวุฒิ (ปาล์ม)</h3>
+            <p style="font-size: 14.5px; line-height: 1.6">
+              <b style="color: var(--accent)">Medical AI Specialist</b><br />
+              แพทยศาสตรบัณฑิต หลักสูตรนานาชาติ <b>ม.ธรรมศาสตร์</b> ·
+              กำลังศึกษาโท บริหารธุรกิจสุขภาพ <b>ม.มหิดล</b><br /><br />
+              ให้คำปรึกษาทางคลินิกแก่ทีมพัฒนา AI
+              และ<b>ดูแลการประเมินคุณภาพและความปลอดภัยของคำตอบ</b>จาก Medical
+              AI<br /><br />
+              🏆 ชนะเลิศ Hackathon <b>ศิริราช × MIT</b> ๒๕๖๘ และ
+              <b>OpenAI × สมาคมปัญญาประดิษฐ์ฯ</b> ๒๕๖๙
+            </p>
+          </div>
+          <div class="notebox">
+            <h3>⚙️ จิตคพัฒน์ สวัสดิ์ผล (นุ๊ก)</h3>
+            <p style="font-size: 14.5px; line-height: 1.6">
+              <b style="color: var(--accent)">AI Engineer (NLP)</b><br />
+              เชี่ยวชาญการพัฒนา
+              <b>LLM · RAG · AI Chatbot</b> สำหรับงานด้านการแพทย์<br /><br />
+              ออกแบบและพัฒนาระบบ AI ผ่าน API
+              <b
+                >ตั้งแต่สถาปัตยกรรม กระบวนการทำงาน การทดลอง
+                ไปจนถึงส่วนติดต่อผู้ใช้</b
+              ><br /><br />
+              เคยทำผลิตภัณฑ์ด้าน<b
+                >การเบิกจ่ายประกัน · ประเมินอาการเบื้องต้น ·
+                แชตบอตตอบคำถามสุขภาพ</b
+              >
+            </p>
+          </div>
+          <div class="notebox">
+            <h3>📋 ภัณฑิรา ชิโนทัยกุล (มายด์)</h3>
+            <p style="font-size: 14.5px; line-height: 1.6">
+              <b style="color: var(--accent)">Medical AI Product Manager</b
+              ><br />
+              ดูแลผลิตภัณฑ์ AI ด้านสุขภาพ
+              <b
+                >ตั้งแต่เก็บความต้องการผู้ใช้ ออกแบบระบบ เชื่อม API ทดสอบ
+                จนใช้งานจริง</b
+              ><br /><br />
+              ผลิตภัณฑ์ที่ดูแล —
+              <b
+                >AI วิเคราะห์ภาพเอกซเรย์ทรวงอก · AI Chatbot · Health
+                Companion</b
+              ><br /><br />
+              วิศวกรรมศาสตร์ <b>University of Tokyo</b> (B.Eng) และ
+              <b>University of Cambridge</b> (M.Phil) · กำลังศึกษาโท ม.มหิดล
+            </p>
+          </div>
+        </div>
+        <div class="foot">Cariva · Workshop รพ.พระนั่งเกล้า</div>
+      </section>
+    </div>
+
+    <!-- nav chrome -->
+    <div class="zone l" id="zoneL"></div>
+    <div class="zone r" id="zoneR"></div>
+    <div class="hint" id="hint">← → to navigate · P to print</div>
+    <div class="nav">
+      <button id="prev" aria-label="Previous">‹</button>
+      <span class="count" id="count">1 / 5</span>
+      <button id="next" aria-label="Next">›</button>
+    </div>
+
+    <script>
+      (function () {
+        var slides = Array.prototype.slice.call(
+          document.querySelectorAll(".stage > .slide"),
+        );
+        var stage = document.getElementById("stage");
+        var count = document.getElementById("count");
+        var progress = document.getElementById("progress");
+        var i = 0;
+
+        function fit() {
+          var s = Math.min(window.innerWidth / 1280, window.innerHeight / 720);
+          stage.style.transform = "translate(-50%,-50%) scale(" + s + ")";
+        }
+        function show(n) {
+          i = Math.max(0, Math.min(slides.length - 1, n));
+          slides.forEach(function (s, k) {
+            s.classList.toggle("active", k === i);
+          });
+          count.textContent = i + 1 + " / " + slides.length;
+          progress.style.width = ((i + 1) / slides.length) * 100 + "%";
+          if (history.replaceState)
+            history.replaceState(null, "", "#" + (i + 1));
+        }
+        function next() {
+          show(i + 1);
+        }
+        function prev() {
+          show(i - 1);
+        }
+
+        window.addEventListener("resize", fit);
+        document.addEventListener("keydown", function (e) {
+          if (["ArrowRight", "PageDown", " ", "Spacebar"].indexOf(e.key) > -1) {
+            e.preventDefault();
+            next();
+          } else if (["ArrowLeft", "PageUp"].indexOf(e.key) > -1) {
+            e.preventDefault();
+            prev();
+          } else if (e.key === "Home") {
+            show(0);
+          } else if (e.key === "End") {
+            show(slides.length - 1);
+          } else if (e.key === "p" || e.key === "P") {
+            e.preventDefault();
+            window.print();
+          }
+        });
+        document.getElementById("next").onclick = next;
+        document.getElementById("prev").onclick = prev;
+        document.getElementById("zoneR").onclick = next;
+        document.getElementById("zoneL").onclick = prev;
+        // fade the hint after a few seconds
+        setTimeout(function () {
+          var h = document.getElementById("hint");
+          if (h) h.style.transition = "opacity .6s";
+          if (h) h.style.opacity = "0";
+        }, 4200);
+
+        // Print: lay each slide onto its own full-size 16:9 page, then tear down.
+        function buildPrint() {
+          teardownPrint();
+          var wrap = document.createElement("div");
+          wrap.id = "printwrap";
+          slides.forEach(function (s) {
+            var pg = document.createElement("div");
+            pg.className = "printpage";
+            var clone = s.cloneNode(true);
+            clone.classList.add("active");
+            pg.appendChild(clone);
+            wrap.appendChild(pg);
+          });
+          document.body.appendChild(wrap);
+        }
+        function teardownPrint() {
+          var w = document.getElementById("printwrap");
+          if (w) w.remove();
+        }
+        window.addEventListener("beforeprint", buildPrint);
+        window.addEventListener("afterprint", teardownPrint);
+
+        var start = parseInt((location.hash || "").replace("#", ""), 10);
+        fit();
+        show(isNaN(start) ? 0 : start - 1);
+      })();
+    </script>
+  </body>
+</html>

@@ -1,3 +1,13 @@
+# PNK Workshop — เอกสารและสไลด์
+
+**สไลด์เปิดงาน (10:00–10:10):** https://punthirachin.github.io/pnk-workshop/intro.html
+**สไลด์ช่วง PRD (11:10–11:30):** https://punthirachin.github.io/pnk-workshop/prd.html
+**ใบเขียน PRD (Workshop 1):** https://punthirachin.github.io/pnk-workshop/
+
+เปิดในเบราว์เซอร์ได้เลย ไม่ต้องติดตั้งอะไร — `→` `←` เลื่อนสไลด์ · `P` พิมพ์เป็น PDF
+
+---
+
 # ใบเขียน PRD สำหรับผลิตภัณฑ์ AI
 
 ใบกรอกแบบหน้าเดียว สำหรับออกแบบผลิตภัณฑ์ที่มี AI ให้ครบ ๘ บล็อก — ปัญหาและผู้ใช้ · เป้าหมายและตัวชี้วัด · ขอบเขต · สถานการณ์ · ข้อมูลและความรู้ · guardrail · test case และเกณฑ์ยอมรับ · เครื่องมือและเจ้าของ
